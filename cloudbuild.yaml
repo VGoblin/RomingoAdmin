@@ -1,0 +1,20 @@
+# om namah shivaya
+
+steps:
+  # npm install
+  - name: node:16.13.0
+    entrypoint: npm
+    args: ["install"]
+
+  # npm run build
+  - name: node:16.13.0
+    entrypoint: npm
+    args: ["run", "build"]
+    env:
+      - "REACT_APP_STRIPE_CLIENT_KEY=pk_test_51JcD2bBdk22npNeJQBWoPOP8JMvOlhYFkCr9KB5YlxU9vtV7Amdkl3lVLxX0qWxXy3YmghTewaILVISoURTfY8YJ00VvhyCojd"
+      - "REACT_APP_ENDPOINT=https://graphql.romingo.com/graphql"
+      - "REACT_APP_BASE_ENDPOINT=https://graphql.romingo.com"
+  # deploy the service
+  - name: gcr.io/cloud-builders/gcloud
+    args: ["app", "deploy", "--appyaml", "app.dev.yaml"]
+timeout: 1220s

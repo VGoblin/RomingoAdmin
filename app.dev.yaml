@@ -1,0 +1,21 @@
+# om namah shivaya
+
+service: admin-panel
+runtime: nodejs14
+instance_class: F1
+automatic_scaling:
+  min_instances: 0
+  max_instances: 1
+  target_cpu_utilization: 0.90
+handlers:
+  - url: /(.*\.(gif|media|json|ico|eot|ttf|woff|woff2|png|jpg|jpeg|css|js|webp|svg))$
+    static_files: build/\1
+    upload: build/(.*)
+  - url: /(.*)
+    static_files: build/index.html
+    upload: build/index.html
+env_variables:
+  NODE_ENV: "development"
+  REACT_APP_STRIPE_CLIENT_KEY: "pk_test_51JcD2bBdk22npNeJQBWoPOP8JMvOlhYFkCr9KB5YlxU9vtV7Amdkl3lVLxX0qWxXy3YmghTewaILVISoURTfY8YJ00VvhyCojd"
+  REACT_APP_ENDPOINT: "https://dev.graphql.romingo.com/graphql"
+  REACT_APP_BASE_ENDPOINT: "https://dev.graphql.romingo.com"
